@@ -15,7 +15,7 @@ Install the module from the [modules directory](https://modules.processwire.com/
 Via `Composer`:
 
 ```
-composer require trk/eventloader
+composer require trk/processwire-event-loader
 ```
 
 Via `git clone`:
