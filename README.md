@@ -46,7 +46,15 @@ EventLoader::load(__DIR__ . '/templates', 'ready.');
 namespace ProcessWire;
 
 return [
+    // 'run' => true, // Also you can pass run option for this file
     'events' => [
+        'Page::private' => [
+            'run' => wire()->user->isLoggedin()
+            'type' => 'method',
+            'fn' => function (HookEvent $e) {
+                $e->return = 'This will run, if user logged in';
+            }
+        ],
         'Page::hello' => [
             'type' => 'method',
             'fn' => function (HookEvent $e) {
