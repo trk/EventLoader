@@ -1,0 +1,19 @@
+{
+    "name": "trk/processwire-event-loader",
+    "description": "Event Loader module for ProcessWire CMS/CMF by ALTI VE BIR.",
+    "type": "pw-module",
+    "keywords": ["processwire", "event", "loader", "admin", "helper"],
+    "homepage": "https://github.com/trk/EventLoader",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iskender TOTOGLU",
+            "email": "iskender@altivebir.com",
+            "homepage": "https://altivebir.com/"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "hari/pw-module": "~1.0"
+    }
+}
