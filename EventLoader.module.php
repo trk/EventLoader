@@ -43,7 +43,7 @@ class EventLoader extends WireData implements Module
                         wire()->addHook($name, $e);
                     } else if (is_array($e) && isset($e['fn']) && (isset($e['run']) && $e['run'] or !isset($e['run']))) {
                         $type = in_array($e['type'], ['before', 'after', 'method', 'property']) ? 'addHook' . ucfirst($e['type']) : 'addHook';
-                        $options = isset($e['options']) && is_array($e['options']) ? $options : [];
+                        $options = isset($e['options']) && is_array($e['options']) ? $e['options'] : [];
                         wire()->{$type}($name, $e['fn'], $options);
                     }
                 }
