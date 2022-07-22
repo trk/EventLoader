@@ -30,11 +30,10 @@ git clone https://github.com/trk/EventLoader.git
 - Loading events from `site/ready.php` file
 
 ```php
-<?php
+<?php namespace ProcessWire;
 
-namespace ProcessWire;
+if(!defined("PROCESSWIRE")) die();
 
-// load event files starts with `ready.` prefix
 EventLoader::load(__DIR__ . '/templates', 'ready.');
 
 ```
