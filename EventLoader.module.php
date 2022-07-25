@@ -29,9 +29,9 @@ class EventLoader extends WireData implements Module
     /**
      * Run event files from configs or given path
      */
-    public static function load(string $root, string $prefix = '')
+    public static function load(string $root, string $prefix = '', array $options = [])
     {
-        $files = self::finder($root, $prefix);
+        $files = self::finder($root, $prefix, $options);
         foreach ($files as $file) {
             $event = require $file;
             if (!(is_array($event) && isset($event['events']) && is_array($event['events']))) {
@@ -56,9 +56,14 @@ class EventLoader extends WireData implements Module
      *
      * @return array
      */
-    protected static function finder(string $root, string $prefix = '', string $pattern = '*.php'): array
+    protected static function finder(string $root, string $prefix = '', array $options = []): array
     {
+        $options = array_merge([
+            'subdir' => 'configs/events',
+            'pattern' => '*.php'
+        ], $options);
         $root = rtrim($root, '/');
-        return glob("{$root}/configs/events/{$prefix}{$pattern}", 0 | GLOB_BRACE | GLOB_NOSORT);
+        $options['subdir'] = ltrim(rtrim($options['subdir'], '/'), '/');
+        return glob("{$root}/{$options['subdir']}/{$prefix}{$options['pattern']}", 0 | GLOB_BRACE | GLOB_NOSORT);
     }
 }
