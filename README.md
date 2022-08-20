@@ -26,6 +26,15 @@ cd site/modules/
 git clone https://github.com/trk/EventLoader.git
 ```
 
+- Module will check below folders for events:
+
+```
+/site/templates/events
+/site/templates/configs/events
+/site/modules/*/events
+/site/modules/*/configs/events
+```
+
 
 - Loading events from `site/ready.php` file
 

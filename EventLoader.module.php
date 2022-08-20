@@ -13,7 +13,7 @@ class EventLoader extends WireData implements Module
     {
         return [
             'title' => 'Event Loader',
-            'version' => 1,
+            'version' => 2,
             'summary' => 'Event Loader module for ProcessWire CMS/CMF by ALTI VE BIR.',
             'href' => 'https://www.altivebir.com',
             'author' => 'İskender TOTOĞLU | @ukyo(community), @trk (Github), https://www.altivebir.com',
@@ -59,7 +59,7 @@ class EventLoader extends WireData implements Module
     protected static function finder(string $root, string $prefix = '', array $options = []): array
     {
         $options = array_merge([
-            'subdir' => 'configs/events',
+            'subdir' => '{configs/events,events}',
             'pattern' => '*.php'
         ], $options);
         $root = rtrim($root, '/');
