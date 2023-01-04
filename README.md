@@ -54,9 +54,21 @@ EventLoader::load(__DIR__ . '/templates', 'ready.');
 
 namespace ProcessWire;
 
+class HelloController
+{
+    public function greeting()
+    {
+        echo 'Hello World !';
+        exit;
+    }
+}
+
 return [
     // 'run' => true, // Also you can pass run option for this file
     'events' => [
+
+        '/hello-world' => [HelloController::class, 'greeting'],
+
         'Page::private' => [
             'run' => wire()->user->isLoggedin()
             'type' => 'method',
@@ -64,6 +76,7 @@ return [
                 $e->return = 'This will run, if user logged in';
             }
         ],
+
         'Page::hello' => [
             'type' => 'method',
             'fn' => function (HookEvent $e) {
@@ -71,6 +84,7 @@ return [
                 $e->return = $message;
             }
         ]
+        
     ]
 ];
 ```
