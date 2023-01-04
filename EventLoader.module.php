@@ -13,7 +13,7 @@ class EventLoader extends WireData implements Module
     {
         return [
             'title' => 'Event Loader',
-            'version' => 2,
+            'version' => 3,
             'summary' => 'Event Loader module for ProcessWire CMS/CMF by ALTI VE BIR.',
             'href' => 'https://www.altivebir.com',
             'author' => 'İskender TOTOĞLU | @ukyo(community), @trk (Github), https://www.altivebir.com',
@@ -41,10 +41,19 @@ class EventLoader extends WireData implements Module
                 foreach ($event['events'] as $name => $e) {
                     if ($e instanceof \Closure) {
                         wire()->addHook($name, $e);
-                    } else if (is_array($e) && isset($e['fn']) && (isset($e['run']) && $e['run'] or !isset($e['run']))) {
-                        $type = in_array($e['type'], ['before', 'after', 'method', 'property']) ? 'addHook' . ucfirst($e['type']) : 'addHook';
-                        $options = isset($e['options']) && is_array($e['options']) ? $e['options'] : [];
-                        wire()->{$type}($name, $e['fn'], $options);
+                    } else if (is_array($e)) {
+                        $keys = array_keys($e);
+                        if (is_int($keys[0])) {
+                            $controller = $e[0];
+                            $method = $e[1] ?? null;
+                            if(method_exists($controller, $method)) {
+                                wire()->addHook($name, new $controller, $method);
+                            }
+                        } else if(isset($e['fn']) && (isset($e['run']) && $e['run'] or !isset($e['run']))) {
+                            $type = in_array($e['type'], ['before', 'after', 'method', 'property']) ? 'addHook' . ucfirst($e['type']) : 'addHook';
+                            $options = isset($e['options']) && is_array($e['options']) ? $e['options'] : [];
+                            wire()->{$type}($name, $e['fn'], $options);
+                        }
                     }
                 }
             }
